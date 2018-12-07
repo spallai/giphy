@@ -17,6 +17,7 @@ function renderButtons() {
 
 function searchAnimals(event) {
     var animal = event.currentTarget.textContent;
+    console.log(event);
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&limit=" + limit + "&api_key=ZikerPm56Hs5BLmF8qWoWUqhbi09FtRd";
     $.ajax({
         url: queryURL,
@@ -26,8 +27,8 @@ function searchAnimals(event) {
         $("#images").empty();
         console.log(response);
         for (i = 0; i < results.length; i++) {
-            var stillImageUrl = results[i].images.original_still.url;
-            var animateImageUrl = results[i].images.original.url;
+            var stillImageUrl = results[i].images.fixed_width_still.url;
+            var animateImageUrl = results[i].images.fixed_width.url;
 
             var animalDiv = $("<div>");
             var animalRatingLabel = $("<label>");
@@ -57,6 +58,7 @@ $("#add-animal").on("click", function (event) {
         animals.push(userAnimal);
     }
     renderButtons();
+    $("#animal-input").val("");
 });
 
 $(document).on("click", ".animal", searchAnimals);
